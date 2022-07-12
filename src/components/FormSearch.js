@@ -1,25 +1,26 @@
-import Button from "./BaseButton";
-import BaseForm from "./BaseForm";
-import './FormCreate.css'
+import BaseForm from "./BaseForm"
+import Button from './BaseButton'
+import './FormSearch.css'
 
-function FormCreate(props) {
+function FormSearch(props) {
   return (
-    <div className="container_FormCreate">
+    <div className="container_FormSearch">
       <BaseForm
-        id="criar_task"
+        id="findById"
         type="text"
         onChange={props.onChange}
-        name="task"
+        name="task_id"
         value={props.task_value}
         completed={props.completed}
       />
       <Button
         type="button"
-        className="btn_add"
+        className={props.className}
         onClick={props.onClick}
         label={props.label}
       />
     </div>
-  );
+  )
 }
-export default FormCreate;
+
+export default FormSearch

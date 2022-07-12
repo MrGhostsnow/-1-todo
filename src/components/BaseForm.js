@@ -1,7 +1,9 @@
+import './BaseForm.css'
+
 
 function BaseForm(props) {
     return (
-      <div className="container_BasedForm">
+      <div className={props.className}>
         <label htmlFor={props.id} className="form-label">
           {props.label}
         </label>

@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import BaseForm from "./BaseForm";
 import BaseButton from "./BaseButton";
 import FormCreate from "./FormCreate";
+import FormSearch from "./FormSearch";
 import "./TaskList.css"
+import { BsSearch } from "react-icons/bs";
+import { BiArrowBack } from 'react-icons/bi'
 
 function TaskList() {
   const baseURL = "http://localhost:8000/tasks";
@@ -20,12 +23,16 @@ function TaskList() {
     completed: false
   });
 
+  // State para 'aparecer' form de editar
   const [showEdit, setShowEdit] = useState(false)
+  // State para 'aparecer' botão de voltar para home
+  const [showBack, setShowBack] = useState(false)
 
   async function findAllTasks() {
     const response = await fetch(baseURL);
     const tasks = await response.json();
     setTaskList(tasks);
+    setShowBack(false)
   }
 
   //   Utiliza o Hook Effect para definir quando a função será chamada
@@ -84,6 +91,7 @@ function TaskList() {
   //   Encontrar a task pelo id
   const handleClick = (e) => {
     findById(task.task_id);
+    setShowBack(true)
     // setTask({
     //   task_id: "",
     // }); // Apagar input
@@ -152,41 +160,24 @@ function TaskList() {
       />
 
       {/* findById funcionando */}
-      <BaseForm
-        id="findById"
-        type="text"
-        label="Search"
-        onChange={handleChange}
-        name="task_id"
-        value={task.task_id}
-      />
+        <FormSearch
+          onChange={handleChange}
+          task_value={task.task_id}
+          className='btn-search'
+          onClick={handleClick}
+          label= {<BsSearch/>}
+        />
 
-      {/* /Colocar icone de busca / Funcionando */}
-      <BaseButton
-        type="button"
-        className={`btn btn-search`}
-        onClick={handleClick}
-        label="Search"
-      />
+      {/*Botão de voltar para pagina inicial / Funcionando */}
+      {showBack ?
+      <BaseButton 
+      className='btn-back'
+      label={<BiArrowBack/>} 
+      onClick={handleBackHome} />
+      : null}
 
-      {/* Estilizar Botão de voltar para pagina inicial / Funcionando */}
-      <BaseButton label="Voltar" onClick={handleBackHome} />
-
-      {taskList.map((task, index) => (
-        <div key={index} className="card_Task">
-          <p className="card_Text">{task.id}</p>
-          <p className="card_Text">{task.task}</p>
-
-          <BaseButton //Botão deletar/ Funcionando
-            id={task.id}
-            type="button"
-            className={`btn btn-delete`}
-            label="Delete" //Adicionar icone
-            onClick={handleDeleteTask}
-          />
-
-          {/* Form de edição / aplicar renderização condicional */}
-          {showEdit ?
+       {/* Form de edição / aplicar renderização condicional */}
+       {showEdit ?
           <FormCreate
             onChange={handleChangeEdit}
             task_value={taskAtualizada.task}
@@ -195,13 +186,26 @@ function TaskList() {
           />
         : null}
 
-          <BaseButton //Botão editar/ não funciona
+      {taskList.map((task, index) => (
+        <div key={index} className="card_Task">
+          <p className="card_Text">{task.id}</p>
+          <p className="card_Text">{task.task}</p>
+
+          <BaseButton //Botão editar/ não retorna para home
             id={task.id}
             type="button"
-            className={`btn btn-edit`}
+            className='btn-edit'
             label="Edit" //Adicionar icone
-            onClick={handleClickEdit}
+            onClick={handleClickEdit}/>
+
+          <BaseButton //Botão deletar/ Funcionando
+            id={task.id}
+            type="button"
+            className='btn-delete'
+            label="Delete" //Adicionar icone
+            onClick={handleDeleteTask}
           />
+
         </div>
       ))}
     </div>
