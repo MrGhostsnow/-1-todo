@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import BaseForm from "./BaseForm";
 import BaseButton from "./BaseButton";
 import FormCreate from "./FormCreate";
 import FormSearch from "./FormSearch";
+import { TaskService } from "../services/TaskService";
 import "./TaskList.css"
 import { BsSearch } from "react-icons/bs";
 import { BiArrowBack } from 'react-icons/bi'
@@ -29,8 +29,7 @@ function TaskList() {
   const [showBack, setShowBack] = useState(false)
 
   async function findAllTasks() {
-    const response = await fetch(baseURL);
-    const tasks = await response.json();
+    const tasks = await TaskService.getList()
     setTaskList(tasks);
     setShowBack(false)
   }
@@ -47,15 +46,7 @@ function TaskList() {
   }
 
   async function create(task) {
-    const response = await fetch(baseURL, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify(task),
-    });
-    const newTask = await response.json();
+    const newTask = await TaskService.create(task)
     setTaskList([newTask]);
   }
 
