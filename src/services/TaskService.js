@@ -6,27 +6,27 @@ const parseResponse = (response) => response.json() //metodo para transformar a 
 export const TaskService = {
     getList: () => fetch(Api.taskCL(), {method: 'GET'}).then(parseResponse), //utilização do fetch com o objeto Api(URL)/ metodo GET(padrão)/ 'then' = 'então' algo como após isso faça aquilo/ 'parseResponse' como metodo(facilitador) para json
 
-    getById: (id) => fetch(Api.taskById(), {method: 'GET'}.then(parseResponse)),
+    getById: (id) => fetch(Api.taskById(id), {method: 'GET'}).then(parseResponse),
 
-    create: () => fetch(Api.taskCL(),{
+    create: (task) => fetch(Api.taskCL(),{
         method: "POST",
         headers: {
         "Content-Type": "application/json",
         },
         mode: "cors",
-        body: JSON.stringify(),
+        body: JSON.stringify(task),
     }).then(parseResponse),
 
-    updateById: (id) => fetch(Api.taskById(), {
+    updateById: (id, edited_task) => fetch(Api.taskById(id), {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         mode: "cors",
-        body: JSON.stringify(),
+        body: JSON.stringify(edited_task),
       }).then(parseResponse),
 
-    deleteById: (id) => fetch(Api.taskById(), {method: 'DELETE'}.then(parseResponse)),
+    deleteById: (id) => fetch(Api.taskById(id), {method: 'DELETE'}).then(parseResponse),
 }
 
 

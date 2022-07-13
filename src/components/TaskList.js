@@ -8,8 +8,6 @@ import { BsSearch } from "react-icons/bs";
 import { BiArrowBack } from 'react-icons/bi'
 
 function TaskList() {
-  const baseURL = "http://localhost:8000/tasks";
-
   const [taskList, setTaskList] = useState([]);
   const [task, setTask] = useState({
     task_id: "",
@@ -40,8 +38,7 @@ function TaskList() {
   }, [newTask, taskAtualizada]);
 
   async function findById(id) {
-    const response = await fetch(`${baseURL}/${id}`);
-    const task = await response.json();
+    const task = await TaskService.getById(id)
     setTaskList([task]);
   }
 
@@ -51,26 +48,12 @@ function TaskList() {
   }
 
   async function editTask(id, edited_task) {
-    const response = await fetch(`${baseURL}/${id}`, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify(edited_task),
-    });
-    const task_edited = await response.json();
+    const task_edited = await TaskService.updateById(id, edited_task);
     setTaskList({ ...task_edited });
   }
 
   async function deleteTask(id) {
-    const response = await fetch(`${baseURL}/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const task_deleted = await response.json();
+    const task_deleted = await TaskService.deleteById(id);
     setTaskList({ ...task_deleted });
   }
 
@@ -116,7 +99,6 @@ function TaskList() {
     setShowEdit(true)
     setTaskAtualizada({ ...taskAtualizada, id: e.target.id });
     findById(e.target.id)
-    console.log(task)
   };
 
   const handleEditTask = () => {
@@ -131,9 +113,8 @@ function TaskList() {
  
 
   const handleDeleteTask = (e) => {
-    console.log(e.target.id);
     deleteTask(e.target.id)
-    // window.location.reload(true);
+    window.location.reload(true);
   };
 
   
