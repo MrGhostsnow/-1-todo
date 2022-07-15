@@ -6,6 +6,7 @@ import { TaskService } from "../services/TaskService";
 import "./TaskList.css"
 import { BsSearch } from "react-icons/bs";
 import { BiArrowBack } from 'react-icons/bi'
+import Modal from "./Modal";
 
 function TaskList() {
   const [taskList, setTaskList] = useState([]);
@@ -125,6 +126,7 @@ function TaskList() {
       <h1>Task's</h1>
       {/* Form de criação */}
       <FormCreate
+        className={"container_FormCreate"}
         onChange={handleChangeCreate}
         task_value={newTask.task}
         onClick={handleCreateTask}
@@ -150,12 +152,15 @@ function TaskList() {
 
        {/* Form de edição / aplicar renderização condicional */}
        {showEdit ?
+       <Modal>
           <FormCreate
+            className={'container_FormEdit'}
             onChange={handleChangeEdit}
             task_value={taskAtualizada.task}
             onClick={handleEditTask}
             label={"Edit final"}
           />
+      </Modal>
         : null}
 
       {taskList.map((task, index) => (

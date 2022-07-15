@@ -118,10 +118,7 @@
 
 .btn-delete{
     display: flex;
-    position: relative;
-    top: -5em;
-    left: -5em;
-    justify-self: center;
+    width: 50%;
     align-self: flex-end; 
     background-color: #fff;
     background-image: none;
@@ -163,10 +160,8 @@
 
 .btn-edit {
     display: flex;
-    position: relative;
-    top: -2.5em;
-    right: -5em;
-    justify-self: center;
+    width: 50%;
+    
     align-self: flex-start; 
     background-color: #fff;
     background-image: none;
@@ -204,5 +199,22 @@
 
 .btn-edit:focus {
     box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+.container_FormEdit {
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0 0 0;
+    z-index: 999;
+  }
+
+.container_FormEdit input {
+    display: flex;
+    margin-right: -5em;
+}
+
+.container_FormEdit button {
+    display: flex;
+    margin-right: -4.5em;
 }
 

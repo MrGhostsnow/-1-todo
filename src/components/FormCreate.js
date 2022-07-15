@@ -1,10 +1,10 @@
-import Button from "./BaseButton";
+import BaseButton from "./BaseButton";
 import BaseForm from "./BaseForm";
 import './FormCreate.css'
 
 function FormCreate(props) {
   return (
-    <div className="container_FormCreate">
+    <div className={props.className}>
       <BaseForm
         id="criar_task"
         type="text"
@@ -13,7 +13,7 @@ function FormCreate(props) {
         value={props.task_value}
         completed={props.completed}
       />
-      <Button
+      <BaseButton
         type="button"
         className="btn_add"
         onClick={props.onClick}
