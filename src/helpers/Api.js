@@ -6,7 +6,12 @@ const TaskContext = {
     
 }
 
+const urls ={
+    development: 'http://localhost:8000',
+    production: 'https://fake-api-todo.herokuapp.com'
+}
+
 export const Api = {
-    baseUrl: "http://localhost:8000",
+    baseUrl: urls[process.env.NODE_ENV],
     ...TaskContext,
 }
