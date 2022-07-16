@@ -1,5 +1,5 @@
 import "./Modal.css"
-import Overlay from "./Overlay"
+import Overlay from "../Overlay/Overlay"
 
 function Modal (props){
 

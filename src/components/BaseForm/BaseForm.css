@@ -16,6 +16,7 @@
 
 .form-control {
     height: 1.5em;
-    padding: 0.2em;
+    padding: 0.5em;
     box-shadow: 10px 5px 5px black;
+    font-size: large;
 }

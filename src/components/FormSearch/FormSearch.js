@@ -1,5 +1,5 @@
-import BaseForm from "./BaseForm"
-import Button from './BaseButton'
+import BaseForm from "../BaseForm/BaseForm"
+import Button from '../BaseButton'
 import './FormSearch.css'
 
 function FormSearch(props) {
@@ -8,6 +8,7 @@ function FormSearch(props) {
       <BaseForm
         id="findById"
         type="text"
+        className='form-control'
         onChange={props.onChange}
         name="task_id"
         value={props.task_value}

@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import BaseButton from "./BaseButton";
-import FormCreate from "./FormCreate";
-import FormSearch from "./FormSearch";
-import { TaskService } from "../services/TaskService";
+import BaseButton from "../BaseButton";
+import FormCreate from "../FormCreate/FormCreate";
+import FormSearch from "../FormSearch/FormSearch";
+import { TaskService } from "../../services/TaskService";
 import "./TaskList.css"
 import { BsSearch } from "react-icons/bs";
 import { BiArrowBack } from 'react-icons/bi'
-import Modal from "./Modal";
+import { BsTrashFill } from 'react-icons/bs'
+import { FaRegEdit } from 'react-icons/fa'
+import Modal from "../Modal/Modal";
 
 function TaskList() {
   const [taskList, setTaskList] = useState([]);
@@ -32,6 +34,7 @@ function TaskList() {
     setTaskList(tasks);
     setShowBack(false)
   }
+
 
   //   Utiliza o Hook Effect para definir quando a função será chamada
   useEffect(() => {
@@ -109,6 +112,7 @@ function TaskList() {
     delete task_edited.id;
     setShowEdit(false)
     editTask(id, task_edited);
+    window.location.reload(true);
   };
 
  
@@ -117,6 +121,11 @@ function TaskList() {
     deleteTask(e.target.id)
     window.location.reload(true);
   };
+
+  const closeModal = () =>{
+    setShowEdit(false)
+}
+
 
   
 
@@ -150,36 +159,38 @@ function TaskList() {
       onClick={handleBackHome} />
       : null}
 
-       {/* Form de edição / aplicar renderização condicional */}
+       {/* Form de edição / Modal */}
        {showEdit ?
-       <Modal>
+       <Modal closeModal={closeModal}>
           <FormCreate
             className={'container_FormEdit'}
             onChange={handleChangeEdit}
             task_value={taskAtualizada.task}
             onClick={handleEditTask}
-            label={"Edit final"}
+            label={"Edit"}
           />
       </Modal>
         : null}
 
       {taskList.map((task, index) => (
         <div key={index} className="card_Task">
-          <p className="card_Text">{task.id}</p>
-          <p className="card_Text">{task.task}</p>
+          <div className="body_Task">
+            <p className="card_Text">{task.id}</p>
+            <p className="card_Text">{task.task}</p>
+          </div>
 
-          <BaseButton //Botão editar/ não retorna para home
+          <BaseButton //Botão editar/ Funcionando
             id={task.id}
             type="button"
             className='btn-edit'
-            label="Edit" //Adicionar icone
+            label={<FaRegEdit/>} //Adicionar icone
             onClick={handleClickEdit}/>
 
           <BaseButton //Botão deletar/ Funcionando
             id={task.id}
             type="button"
             className='btn-delete'
-            label="Delete" //Adicionar icone
+            label={<BsTrashFill/>} //Adicionar icone
             onClick={handleDeleteTask}
           />
 

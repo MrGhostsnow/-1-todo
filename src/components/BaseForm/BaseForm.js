@@ -9,7 +9,7 @@ function BaseForm(props) {
         </label>
         <input
           type={props.type}
-          className="form-control"
+          className={'form-control'}
           id={props.id}
           onChange={props.onChange}
           name={props.name}
