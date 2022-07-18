@@ -1,11 +1,7 @@
-import Modal from "./Modal"
+import Modal from "./Modal";
 
-function PaletaModal(props){
-    return (
-        <Modal closeModal={props.closeModal}>
-            
-        </Modal>
-    )
+function PaletaModal(props) {
+  return <Modal closeModal={props.closeModal}></Modal>;
 }
 
-export default PaletaModal
+export default PaletaModal;

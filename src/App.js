@@ -1,12 +1,16 @@
-import TaskList from './components/TaskList/TaskList'
+import TaskList from "./components/TaskList/TaskList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Footer from "./components/Footer/Footer";
+import "./App.css";
 
 function App() {
   return (
-    <Routes>
-      <Route path='/' element={<TaskList/>}/>
-    </Routes>
-    
+    <div className="Home">
+      <Routes>
+        <Route path="/" element={<TaskList />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 }
 

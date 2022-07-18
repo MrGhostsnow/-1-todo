@@ -1,8 +1,14 @@
 .container_FormSearch {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    justify-self: flex-end;
-    margin-right: -45em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  justify-self: flex-end;
+  margin-right: -35em;
+}
+
+@media screen and (min-width: 1000px) {
+  .container_FormSearch {
+    margin-right: -50em;
+  }
 }

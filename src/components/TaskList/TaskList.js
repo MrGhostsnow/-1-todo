@@ -3,11 +3,11 @@ import BaseButton from "../BaseButton";
 import FormCreate from "../FormCreate/FormCreate";
 import FormSearch from "../FormSearch/FormSearch";
 import { TaskService } from "../../services/TaskService";
-import "./TaskList.css"
+import "./TaskList.css";
 import { BsSearch } from "react-icons/bs";
-import { BiArrowBack } from 'react-icons/bi'
-import { BsTrashFill } from 'react-icons/bs'
-import { FaRegEdit } from 'react-icons/fa'
+import { BiArrowBack } from "react-icons/bi";
+import { BsTrashFill } from "react-icons/bs";
+import { FaRegEdit } from "react-icons/fa";
 import Modal from "../Modal/Modal";
 
 function TaskList() {
@@ -21,20 +21,19 @@ function TaskList() {
   const [taskAtualizada, setTaskAtualizada] = useState({
     task: "",
     id: "",
-    completed: false
+    completed: false,
   });
 
   // State para 'aparecer' form de editar
-  const [showEdit, setShowEdit] = useState(false)
+  const [showEdit, setShowEdit] = useState(false);
   // State para 'aparecer' botão de voltar para home
-  const [showBack, setShowBack] = useState(false)
+  const [showBack, setShowBack] = useState(false);
 
   async function findAllTasks() {
-    const tasks = await TaskService.getList()
+    const tasks = await TaskService.getList();
     setTaskList(tasks);
-    setShowBack(false)
+    setShowBack(false);
   }
-
 
   //   Utiliza o Hook Effect para definir quando a função será chamada
   useEffect(() => {
@@ -42,12 +41,12 @@ function TaskList() {
   }, [newTask, taskAtualizada]);
 
   async function findById(id) {
-    const task = await TaskService.getById(id)
+    const task = await TaskService.getById(id);
     setTaskList([task]);
   }
 
   async function create(task) {
-    const newTask = await TaskService.create(task)
+    const newTask = await TaskService.create(task);
     setTaskList([newTask]);
   }
 
@@ -69,7 +68,7 @@ function TaskList() {
   //   Encontrar a task pelo id
   const handleClick = (e) => {
     findById(task.task_id);
-    setShowBack(true)
+    setShowBack(true);
     // setTask({
     //   task_id: "",
     // }); // Apagar input
@@ -87,7 +86,7 @@ function TaskList() {
 
   //   Captura a mudança do input de editar
   const handleChangeEdit = (e) => {
-    console.log(taskAtualizada)
+    console.log(taskAtualizada);
     setTaskAtualizada({ ...taskAtualizada, [e.target.name]: e.target.value });
   };
 
@@ -99,36 +98,34 @@ function TaskList() {
     }); //'0' o input de criação
   };
 
+  //Modifica o estado do modal de edição / chama o id com o id do objeto clicado
   const handleClickEdit = (e) => {
-    setShowEdit(true)
+    setShowEdit(true);
     setTaskAtualizada({ ...taskAtualizada, id: e.target.id });
-    findById(e.target.id)
+    findById(e.target.id);
   };
 
+  //Pega o objeto que foi clicado através do id capturado na 'handleclickedit'/ edita a task através do crud
   const handleEditTask = () => {
     const task_edited = { ...taskAtualizada };
     const id = task_edited.id;
-   
+
     delete task_edited.id;
-    setShowEdit(false)
+    setShowEdit(false);
     editTask(id, task_edited);
     window.location.reload(true);
   };
 
- 
-
+  //Captura o evento ligado ao id do objeto e deleta
   const handleDeleteTask = (e) => {
-    deleteTask(e.target.id)
+    deleteTask(e.target.id);
     window.location.reload(true);
   };
 
-  const closeModal = () =>{
-    setShowEdit(false)
-}
-
-
-  
-
+  //Muda o estado para fechar o modal de edição
+  const closeModal = () => {
+    setShowEdit(false);
+  };
 
   return (
     <div className="taskList_container">
@@ -143,34 +140,35 @@ function TaskList() {
       />
 
       {/* findById funcionando */}
-        <FormSearch
-          onChange={handleChange}
-          task_value={task.task_id}
-          className='btn-search'
-          onClick={handleClick}
-          label= {<BsSearch/>}
-        />
+      <FormSearch
+        onChange={handleChange}
+        task_value={task.task_id}
+        className="btn-search"
+        onClick={handleClick}
+        label={<BsSearch />}
+      />
 
       {/*Botão de voltar para pagina inicial / Funcionando */}
-      {showBack ?
-      <BaseButton 
-      className='btn-back'
-      label={<BiArrowBack/>} 
-      onClick={handleBackHome} />
-      : null}
+      {showBack ? (
+        <BaseButton
+          className="btn-back"
+          label={<BiArrowBack />}
+          onClick={handleBackHome}
+        />
+      ) : null}
 
-       {/* Form de edição / Modal */}
-       {showEdit ?
-       <Modal closeModal={closeModal}>
+      {/* Form de edição / Modal */}
+      {showEdit ? (
+        <Modal closeModal={closeModal}>
           <FormCreate
-            className={'container_FormEdit'}
+            className={"container_FormEdit"}
             onChange={handleChangeEdit}
             task_value={taskAtualizada.task}
             onClick={handleEditTask}
             label={"Edit"}
           />
-      </Modal>
-        : null}
+        </Modal>
+      ) : null}
 
       {taskList.map((task, index) => (
         <div key={index} className="card_Task">
@@ -182,18 +180,18 @@ function TaskList() {
           <BaseButton //Botão editar/ Funcionando
             id={task.id}
             type="button"
-            className='btn-edit'
-            label={<FaRegEdit/>} //Adicionar icone
-            onClick={handleClickEdit}/>
+            className="btn-edit"
+            label={<FaRegEdit />} //Adicionar icone
+            onClick={handleClickEdit}
+          />
 
           <BaseButton //Botão deletar/ Funcionando
             id={task.id}
             type="button"
-            className='btn-delete'
-            label={<BsTrashFill/>} //Adicionar icone
+            className="btn-delete"
+            label={<BsTrashFill />} //Adicionar icone
             onClick={handleDeleteTask}
           />
-
         </div>
       ))}
     </div>

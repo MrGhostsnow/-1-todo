@@ -1,22 +1,22 @@
 .container_BaseForm {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-right: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 1em;
 }
 
 .form_Search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-right: -80em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-right: -80em;
 }
 
 .form-control {
-    height: 1.5em;
-    padding: 0.5em;
-    box-shadow: 10px 5px 5px black;
-    font-size: large;
+  height: 1.5em;
+  padding: 0.5em;
+  box-shadow: 10px 5px 5px black;
+  font-size: large;
 }
