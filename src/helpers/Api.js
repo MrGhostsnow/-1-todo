@@ -11,6 +11,6 @@ const urls = {
 };
 
 export const Api = {
-  baseUrl: urls[process.env.NODE_ENV],
+  baseUrl: "https://fake-api-todo.herokuapp.com",
   ...TaskContext,
 };
